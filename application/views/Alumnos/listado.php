@@ -224,7 +224,8 @@ and open the template in the editor.
             url: '<?php echo site_url('index.php/Alumnos/guardarCambios/') ?>' + parametros['id'],
             method: 'POST',
             success: function (result) {
-                window.location.replace("<?php echo site_url('index.php/Alumnos/Lista') ?>");
+                alert('succes');
+                //window.location.replace("<?php echo site_url('index.php/Alumnos/Lista') ?>");
             },
             error: function () {
                 alert("Ocurrio un error!");

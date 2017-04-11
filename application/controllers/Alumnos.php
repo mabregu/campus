@@ -39,7 +39,7 @@ class Alumnos extends CI_Controller {
     }
 
     public function guardarCambios($id = null) {
-        $this->validar();
+        //$this->validar();
         if ($this->input->post()) {
             $dni = $this->input->post('dni');
             $nombre = $this->input->post('nom');
