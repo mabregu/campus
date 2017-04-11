@@ -4,9 +4,9 @@
 
     RewriteCond %{THE_REQUEST} ^GET.*index\.php [NC]
     RewriteCond %{REQUEST_URI} !/system/.* [NC]
-    RewriteRule (.*?)index\.php/*(.*) app/$1$2 [R=301,NE,L]
+    RewriteRule (.*?)index\.php/*(.*) campus/$1$2 [R=301,NE,L]
 
     RewriteCond %{REQUEST_FILENAME} !-f
     RewriteCond %{REQUEST_FILENAME} !-d
-    RewriteRule ^(.*)$ app/index.php/$1 [L]
+    RewriteRule ^(.*)$ campus/index.php/$1 [L]
 </IfModule>
