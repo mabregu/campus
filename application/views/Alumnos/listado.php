@@ -3,51 +3,43 @@
 To change this license header, choose License Headers in Project Properties.
 To change this template file, choose Tools | Templates
 and open the template in the editor.
--->
-<html>
-    <head>
-        <meta charset="UTF-8">
-        <title></title>
-    </head>
-    <body>
-        <br>        
-        <h1 class='page-header' style="margin-top: -5px ;">Listado de Alumnos</h1>
-        <?php echo validation_errors(); ?>
-        <button type="button" class="btn btn-success" data-toggle="modal" data-target="#Alta">Nuevo Alumno</button><br><br>
-        <table width="100%" class="table table-striped table-bordered table-hover" id="dataTables-example">
-            <thead>
-                <tr>
-                    <th>#</th>
-                    <th>#Legajo</th>  
-                    <th>Nombre(s)</th>
-                    <th>Apellido</th>
-                    <th>Carrera</th>
-                    <th>Ver</th>
-                    <th>Editar</th>
-                    <th>Eliminar</th>
-                </tr>
-            </thead>
-            <tbody>
-                <?php
-                $i = 1;
-                foreach ($Alumnos as $alumno):
-                    ?>
-                    <tr>
-                        <td><?php echo $i ?></td>
-                        <td><?php echo $alumno->legajo ?></td>
-                        <td><?php echo $alumno->nombre ?></td>
-                        <td><?php echo $alumno->apellido ?></td>
-                        <td><?php echo $alumno->carrera ?></td>
-                        <td><?php echo '<button type="button" onclick="ver(' . $alumno->id . ')" class="btn btn-link" data-toggle="modal" data-target="#Ver" id="ver' . $alumno->id . '" data-id="' . $alumno->id . '" data-name="' . $alumno->nombre . '" data-ape="' . $alumno->apellido . '" data-leg="' . $alumno->legajo . '"><span class="glyphicon glyphicon-search"></button>' ?></td>
-                        <td><?php echo '<button type="button" onclick="modif(' . $alumno->id . ')" class="btn btn-link" data-toggle="modal" data-target="#Editar" id="editar' . $alumno->id . '" data-id="' . $alumno->id . '" data-name="' . $alumno->nombre . '" data-ape="' . $alumno->apellido . '" data-leg="' . $alumno->legajo . '"><span class="glyphicon glyphicon-pencil"></button>' ?></td>
-                        <td><?php echo '<button type="button" onclick="elim(' . $alumno->id . ')" class="btn btn-link" data-toggle="modal" data-target="#Eliminar" id="eliminar' . $alumno->id . '" data-id="' . $alumno->id . '" data-name="' . $alumno->nombre . '" data-ape="' . $alumno->apellido . '" data-leg="' . $alumno->legajo . '"><span class="glyphicon glyphicon-trash"></button>' ?></td>
-                        <?php $i++; ?>
-                    </tr>
-                <?php endforeach; ?>
-            </tbody>
-        </table>
-    </body>
-</html>
+-->    
+<br>        
+<h1 class='page-header' style="margin-top: -5px ;">Listado de Alumnos</h1>
+<?php echo validation_errors(); ?>
+<button type="button" class="btn btn-success" data-toggle="modal" data-target="#Alta">Nuevo Alumno</button><br><br>
+<table width="100%" class="table table-striped table-bordered table-hover" id="dataTables-example">
+    <thead>
+        <tr>
+            <th>#</th>
+            <th>#Legajo</th>  
+            <th>Nombre(s)</th>
+            <th>Apellido</th>
+            <th>Carrera</th>
+            <th>Ver</th>
+            <th>Editar</th>
+            <th>Eliminar</th>
+        </tr>
+    </thead>
+    <tbody>
+        <?php
+        $i = 1;
+        foreach ($Alumnos as $alumno):
+            ?>
+            <tr>
+                <td><?php echo $i ?></td>
+                <td><?php echo $alumno->legajo ?></td>
+                <td><?php echo $alumno->nombre ?></td>
+                <td><?php echo $alumno->apellido ?></td>
+                <td><?php echo $alumno->carrera ?></td>
+                <td><?php echo '<button type="button" onclick="ver(' . $alumno->id . ')" class="btn btn-link" data-toggle="modal" data-target="#Ver" id="ver' . $alumno->id . '" data-id="' . $alumno->id . '" data-name="' . $alumno->nombre . '" data-ape="' . $alumno->apellido . '" data-leg="' . $alumno->legajo . '"><span class="glyphicon glyphicon-search"></button>' ?></td>
+                <td><?php echo '<button type="button" onclick="modif(' . $alumno->id . ')" class="btn btn-link" data-toggle="modal" data-target="#Editar" id="editar' . $alumno->id . '" data-id="' . $alumno->id . '" data-name="' . $alumno->nombre . '" data-ape="' . $alumno->apellido . '" data-leg="' . $alumno->legajo . '"><span class="glyphicon glyphicon-pencil"></button>' ?></td>
+                <td><?php echo '<button type="button" onclick="elim(' . $alumno->id . ')" class="btn btn-link" data-toggle="modal" data-target="#Eliminar" id="eliminar' . $alumno->id . '" data-id="' . $alumno->id . '" data-name="' . $alumno->nombre . '" data-ape="' . $alumno->apellido . '" data-leg="' . $alumno->legajo . '"><span class="glyphicon glyphicon-trash"></button>' ?></td>
+            <?php $i++; ?>
+            </tr>
+<?php endforeach; ?>
+    </tbody>
+</table>
 
 <!-- Modal Modificar-->
 <div class="modal fade" id="Editar" tabindex="-1" role="dialog" aria-labelledby="EditarLabel">
@@ -109,7 +101,7 @@ and open the template in the editor.
                 <h4 class="modal-title" id="EditarLabel">Alta de Alumno</h4>
             </div>
             <div class="modal-body">
-                <?php echo validation_errors(); ?>
+<?php echo validation_errors(); ?>
                 <label>DNI</label>
                 <input id="dni" name="dni" class="form-control" style="width: 150px ;" required>
                 <label>Nombre</label>
@@ -162,15 +154,43 @@ and open the template in the editor.
     </div>
 </div>
 
-<script>
-    $(document).ready(function () {
-        $('#example').DataTable({
-            "language": {
-                "url": "//cdn.datatables.net/plug-ins/9dcbecd42ad/i18n/Spanish.json"
-            }
-        });
-    });
+<!-- Modal Ok-->
+<div class="modal fade" id="ok-modal" tabindex="-1" role="dialog" aria-labelledby="okLabel">
+    <div class="modal-dialog modal-sm" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="okLabel">¡Ok!</h4>
+            </div>
+            <div class="modal-body">
+                <p>¡Todos sus cambios fueron realizados con exito!</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" data-dismiss="modal" onclick="location.href = '<?php echo site_url('index.php/Alumnos/Lista') ?>';">Ok</button>
+            </div>
+        </div>
+    </div>
+</div>
 
+<!-- Modal Fallo-->
+<div class="modal fade" id="fallo-modal" tabindex="-1" role="dialog" aria-labelledby="falloLabel">
+    <div class="modal-dialog modal-sm" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="falloLabel">Lo sentimos...</h4>
+            </div>
+            <div class="modal-body">
+                <p>Lamentablemente ocurrio una falla, vuelva a intentarlo. Disculpe las molestias ocasionadas.</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" data-dismiss="modal" onclick="location.href = '<?php echo site_url('index.php/Alumnos/Lista') ?>';">Cerrar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
     function modif(id) {
         var datos = {
             "id": $('#editar' + id).data('id'),
@@ -219,17 +239,17 @@ and open the template in the editor.
             "nom": nombre
         };
 
+//        alert(parametros['nom']+' '+parametros['ape']);
+
         $.ajax({
             data: parametros,
             url: '<?php echo site_url('index.php/Alumnos/guardarCambios/') ?>' + parametros['id'],
             method: 'POST',
             success: function (result) {
-                alert('succes');
-                //window.location.replace("<?php echo site_url('index.php/Alumnos/Lista') ?>");
+                $("#ok-modal").modal("show");
             },
             error: function () {
-                alert("Ocurrio un error!");
-                window.location.replace("<?php echo site_url('index.php/Alumnos/Lista') ?>");
+                $("#fallo-modal").modal("show");
             }
         });
     }
@@ -242,11 +262,12 @@ and open the template in the editor.
             url: '<?php echo site_url('index.php/Alumnos/eliminar/') ?>' + id_alumno,
             method: 'POST',
             success: function (result) {
-                window.location.replace("<?php echo site_url('index.php/Alumnos/Lista') ?>");
+                $("#ok-modal").modal("show");
+                //window.location.replace("<?php echo site_url('index.php/Alumnos/Lista') ?>");
             },
             error: function () {
-                alert("Ocurrio un error!");
-                window.location.replace("<?php echo site_url('index.php/Alumnos/Lista') ?>");
+                $("#fallo-modal").modal("show");
+                //window.location.replace("<?php echo site_url('index.php/Alumnos/Lista') ?>");
             }
         });
     }
@@ -264,18 +285,12 @@ and open the template in the editor.
             data: parametros,
             url: '<?php echo site_url('index.php/Alumnos/guardarCambios/') ?>',
             method: 'POST',
-            success: function (data) {
-                if (data['status']) {
-                    alert('true');
-                } else {
-                    alert(data);
-                    alert(data['status']);
-                    alert('false');
-                }
+            success: function (result) {
+                $("#ok-modal").modal("show");
                 //window.location.replace("<?php echo site_url('index.php/Alumnos/Lista') ?>");
             },
             error: function () {
-                alert("Ocurrio un error!");
+                $("#fallo-modal").modal("show");
                 //window.location.replace("<?php echo site_url('index.php/Alumnos/Lista') ?>");
             }
         });
