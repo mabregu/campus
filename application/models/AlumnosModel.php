@@ -7,29 +7,26 @@
  */
 
 class AlumnosModel extends CI_Model {
+	
+	private $table = 'persona';
+	private $vista = 'vista_alumnos';
 
     public function __construct() {
         parent::__construct();
     }
 
     public function getAll() {
-        $this->db->select('p.id id, a.nro_legajo legajo,p.nombre nombre, p.apellido apellido, c.descripcion carrera');
-        $this->db->from('persona p');
-        $this->db->join('alumnos a', 'a.id_persona=p.id');
-        $this->db->join('carrera c', 'a.id_carrera=c.id');
-        $rs = $this->db->get();
+        $this->db->select('id, legajo, nombre, apellido, carrera');
+        $rs = $this->db->get($this->vista);
         $alumnos = $rs->result();
-//        echo $this->db->last_query();
-//        die;
         return $alumnos;
     }
 
     public function getById($id) {
-        $this->db->select('*');
-        $this->db->from('persona');
-        $this->db->where('id', $id);
-        $consulta = $this->db->get();
-        $resultado = $consulta->row();
+        $this->db->select('id,dni,nombre,apellido,id_usuario');
+        $this->db->where('dni', $id);
+        $rs = $this->db->get($this->vista);
+        $resultado = $rs->row();
         return $resultado;
     }
 
@@ -39,9 +36,10 @@ class AlumnosModel extends CI_Model {
             'apellido' => $apellido,
         );
 
-        if ($id) {
+        if(is_numeric($id)) {
             $this->db->where('id', $id);
             $this->db->update('persona', $data_editar);
+            //echo $this->db->last_query();die;
         } else {
             $data_insert = array(
                 'id' => $id,
@@ -67,6 +65,7 @@ class AlumnosModel extends CI_Model {
             );
 
             $this->db->insert('alumnos', $alumno);
+            //echo $this->db->last_query();die;
         }
     }
 
@@ -74,5 +73,4 @@ class AlumnosModel extends CI_Model {
         $this->db->where('id', $id);
         $this->db->delete('persona');
     }
-
 }

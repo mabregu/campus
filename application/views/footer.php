@@ -4,9 +4,6 @@
     </div>
 <script type="text/javascript">
 </script>
-    <!-- jQuery -->
-    <script src="<?php echo base_url(); ?>publico/vendor/jquery/jquery.min.js"></script>
-
     <!-- Bootstrap Core JavaScript -->
     <script src="<?php echo base_url(); ?>publico/vendor/bootstrap/js/bootstrap.min.js"></script>
 

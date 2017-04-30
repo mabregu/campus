@@ -80,15 +80,19 @@ and open the template in the editor.
             </div>
             <div class="modal-body">
                 <form class="form-inline">
-                    <label>Id</label>
-                    <input id="id" name="id" class="form-control" style="width: 50px ;" readonly="readonly">
-                    <label>Legajo</label>
-                    <input id="leg" name="leg" class="form-control" style="width: 100px ;" readonly="readonly">
-                </form><br>
-                <label>Nombre</label>
-                <input id="nomb" name="name" class="form-control" style="width: 250px ;" readonly="readonly">
-                <label>Apellido</label>
-                <input id="apel" name="ape" class="form-control" style="width: 250px ;" readonly="readonly">
+					<div class="form-group">
+						<label>Legajo</label>
+						<div id="leg"></div>
+					</div>
+					<div class="form-group">
+						<label>Nombre</label>
+						<div id="nomb"></div>
+					</div>
+					<div class="form-group">
+						<label>Apellido</label>
+						<div id="apel"></div>
+					</div>
+				</form>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
@@ -173,10 +177,10 @@ and open the template in the editor.
             "nombre": $('#editar' + id).data('name')
         };
 
-        $("#Ver #id").val(datos["id"]);
-        $("#Ver #leg").val(datos["legajo"]);
-        $("#Ver #nomb").val(datos["nombre"]);
-        $("#Ver #apel").val(datos["apellido"]);
+        $("#Ver #id").html(datos["id"]);
+        $("#Ver #leg").html(datos["legajo"]);
+        $("#Ver #nomb").html(datos["nombre"]);
+        $("#Ver #apel").html(datos["apellido"]);
     }
 
     function elim(id) {
@@ -187,10 +191,10 @@ and open the template in the editor.
             "nombre": $('#eliminar' + id).data('name')
         };
 
-        $("#Eliminar #id").val(datos["id"]);
-        $("#Eliminar #leg").val(datos["legajo"]);
-        $("#Eliminar #nomb").val(datos["nombre"]);
-        $("#Eliminar #apel").val(datos["apellido"]);
+        $('#Eliminar #id').val(datos['id']);
+        $('#Eliminar #leg').val(datos['legajo']);
+        $('#Eliminar #nomb').val(datos['nombre']);
+        $('#Eliminar #apel').val(datos['apellido']);
     }
 
     function guardarCambios(id, apellido, nombre) {

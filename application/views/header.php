@@ -11,7 +11,7 @@ include_once "Login/chkUsuario.php";
         <meta name="description" content="Campus V1.0">
         <meta name="author" content="mabregu">
 
-        <title>Campus-Admin-ISMI</title>
+        <title>Campus Virtual del ISMI</title>
         <link rel="shortcut icon" type="image/png" href="<?php echo base_url(); ?>publico/img/bug.png"/>
         <!-- Bootstrap Core CSS -->
         <link href="<?php echo base_url(); ?>publico/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
@@ -36,6 +36,10 @@ include_once "Login/chkUsuario.php";
             <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
             <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
         <![endif]-->
+        <!-- jQuery -->
+		<script src="<?php echo base_url(); ?>publico/vendor/jquery/jquery.min.js"></script>
+        <!-- Validaciones JQ -->
+		<script src="<?php echo base_url(); ?>publico/js/jquery.validate.js"></script>
 
     </head>
 

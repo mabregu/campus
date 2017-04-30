@@ -9,9 +9,12 @@
 defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Alumnos extends CI_Controller {
+	public function __construct() {
+        parent::__construct();
+        $this->load->model('AlumnosModel', 'am', true);
+    }
 
     public function Lista() {
-        $this->load->model('AlumnosModel', 'am', true);
         $datos['Alumnos'] = $this->am->getAll();
         $this->load->view('header');
         $this->load->view('Alumnos/listado', $datos);
@@ -20,9 +23,8 @@ class Alumnos extends CI_Controller {
 
     public function verAlumno($id = null) {
         $data = array();
-        $this->load->model('AlumnosModel');
         if ($id) {
-            $informe = $this->AlumnosModel->obtener_por_id($id);
+            $informe = $this->am->obtener_por_id($id);
             $data['id'] = $informe->id;
             $data['titulo'] = $informe->titulo;
             $data['descripcion'] = $informe->descripcion;
@@ -39,15 +41,15 @@ class Alumnos extends CI_Controller {
     }
 
     public function guardarCambios($id = null) {
-        //$this->validar();
         if ($this->input->post()) {
             $dni = $this->input->post('dni');
-            $nombre = $this->input->post('nom');
+            $nombre = $this->input->post('name');
             $apellido = $this->input->post('ape');
             $carrera = $this->input->post('carr');
             
-            $this->load->model('AlumnosModel');
-            $this->AlumnosModel->guardarCambios($id, $dni, $nombre, $apellido, $id_usuario = 0, $carrera);
+            if(!is_numeric($id)){$this->validar($dni,$nombre,$apellido);}
+            
+            $this->am->guardarCambios($id, $dni, $nombre, $apellido, $id_usuario = 0, $carrera);
             $data['status'] = TRUE;
             echo json_encode($data);
 
@@ -57,27 +59,26 @@ class Alumnos extends CI_Controller {
         }
     }
 
-    public function validar() {
-        $this->form_validation->set_message('required', '%s es obligatorio.');
-        $this->form_validation->set_message('numeric', '%s debe ser numérico.');
-        $this->form_validation->set_rules('dni', 'DNI', 'required');
-        $this->form_validation->set_rules('nom', 'Nombre', 'required');
-        $this->form_validation->set_rules('ape', 'Apellido', 'required');
-        $this->form_validation->set_rules('carr', 'Carrera', 'required');
-
-        if ($this->form_validation->run() == FALSE) {
+    public function validar($dni,$nombre,$apellido) {
+        if ($dni=='' || $nombre=='' || $apellido=='' || $apellido==null || $dni==null || $nombre==null) {
             $data['status'] = FALSE;
             echo json_encode($data);exit();
         } else {
-            $data['status'] = TRUE;
-            echo json_encode($data);
+            $data['persona'] = $this->am->getById($dni);
+            if($data['persona']) {
+				echo json_encode(array("status" => FALSE,"existe" => TRUE));exit();
+				//echo json_encode($data);exit();
+			}
         }
     }
 
     public function eliminar($id) {
-        $this->load->model('AlumnosModel');
-        $this->AlumnosModel->eliminar($id);
+        $this->am->eliminar($id);
         redirect('index.php/Alumnos/Lista');
     }
 
 }
+
+/*
+ * Fin controlador Alumnos.php
+ */

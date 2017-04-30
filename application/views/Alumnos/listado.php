@@ -4,7 +4,7 @@ To change this license header, choose License Headers in Project Properties.
 To change this template file, choose Tools | Templates
 and open the template in the editor.
 -->    
-<br>        
+<br>
 <h1 class='page-header' style="margin-top: -5px ;">Listado de Alumnos</h1>
 <?php echo validation_errors(); ?>
 <button type="button" class="btn btn-success" data-toggle="modal" data-target="#Alta">Nuevo Alumno</button><br><br>
@@ -74,16 +74,20 @@ and open the template in the editor.
                 <h4 class="modal-title" id="EditarLabel">Datos de Alumnos</h4>
             </div>
             <div class="modal-body">
-                <form class="form-inline">
-                    <label>Id</label>
-                    <input id="id" name="id" class="form-control" style="width: 50px ;" readonly="readonly">
-                    <label>Legajo</label>
-                    <input id="leg" name="leg" class="form-control" style="width: 100px ;" readonly="readonly">
-                </form><br>
-                <label>Nombre</label>
-                <input id="nomb" name="name" class="form-control" style="width: 250px ;" readonly="readonly">
-                <label>Apellido</label>
-                <input id="apel" name="ape" class="form-control" style="width: 250px ;" readonly="readonly">
+				<form class="form-inline">
+					<div class="form-group">
+						<label>Legajo</label>
+						<div id="leg"></div>
+					</div>
+					<div class="form-group">
+						<label>Nombre</label>
+						<div id="nomb"></div>
+					</div>
+					<div class="form-group">
+						<label>Apellido</label>
+						<div id="apel"></div>
+					</div>
+				</form>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
@@ -101,7 +105,7 @@ and open the template in the editor.
                 <h4 class="modal-title" id="EditarLabel">Alta de Alumno</h4>
             </div>
             <div class="modal-body">
-<?php echo validation_errors(); ?>
+			<form id="formulario" action="" method="post" onsubmit="return false">
                 <label>DNI</label>
                 <input id="dni" name="dni" class="form-control" style="width: 150px ;" required>
                 <label>Nombre</label>
@@ -109,7 +113,7 @@ and open the template in the editor.
                 <label>Apellido</label>
                 <input id="apel" name="ape" class="form-control" style="width: 250px ;" required>
                 <label>Seleccione su carrera</label>
-                <select class="form-control" id="carr">
+                <select class="form-control" name="carr">
                     <option>Seleccionar...</option>
                     <option value="1">Técnico Superior en Análisis de Sistemas</option>
                     <option value="2">Técnico Superior en Gestión Parlamentaria</option>
@@ -118,9 +122,9 @@ and open the template in the editor.
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
-                <button type="button" class="btn btn-primary " onclick="nuevo($('#Alta #dni').val(), $('#Alta #apel').val(), $('#Alta #nomb').val(), $('#Alta #carr').val());
-                        return false;">Confirmar</button>
+                <button type="submit" id='enviar' class="btn btn-primary ">Confirmar</button>
             </div>
+            </form>
         </div>
     </div>
 </div>
@@ -190,6 +194,24 @@ and open the template in the editor.
     </div>
 </div>
 
+<!-- Modal ya existe-->
+<div class="modal fade" id="existe-modal" tabindex="-1" role="dialog" aria-labelledby="existeLabel">
+    <div class="modal-dialog modal-sm" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="existeLabel">Ya existe.</h4>
+            </div>
+            <div class="modal-body">
+                <p>La persona que intenta agregar, ya se encuentra en el sistema.</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" data-dismiss="modal" onclick="location.href = '<?php echo site_url('index.php/Alumnos/Lista') ?>';">Cerrar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
 <script>
     function modif(id) {
         var datos = {
@@ -212,10 +234,10 @@ and open the template in the editor.
             "nombre": $('#editar' + id).data('name')
         };
 
-        $("#Ver #id").val(datos["id"]);
-        $("#Ver #leg").val(datos["legajo"]);
-        $("#Ver #nomb").val(datos["nombre"]);
-        $("#Ver #apel").val(datos["apellido"]);
+        $("#Ver #id").html(datos["id"]);
+        $("#Ver #leg").html(datos["legajo"]);
+        $("#Ver #nomb").html(datos["nombre"]);
+        $("#Ver #apel").html(datos["apellido"]);
     }
 
     function elim(id) {
@@ -236,10 +258,10 @@ and open the template in the editor.
         var parametros = {
             "id": id,
             "ape": apellido,
-            "nom": nombre
+            "name": nombre
         };
 
-//        alert(parametros['nom']+' '+parametros['ape']);
+        //alert(parametros['id'] + ' nombre: ' + parametros['nom']+' apellido: '+parametros['ape']);
 
         $.ajax({
             data: parametros,
@@ -263,37 +285,58 @@ and open the template in the editor.
             method: 'POST',
             success: function (result) {
                 $("#ok-modal").modal("show");
-                //window.location.replace("<?php echo site_url('index.php/Alumnos/Lista') ?>");
             },
             error: function () {
                 $("#fallo-modal").modal("show");
-                //window.location.replace("<?php echo site_url('index.php/Alumnos/Lista') ?>");
             }
         });
     }
-
-    function nuevo(dni, apellido, nombre, carrera) {
-
-        var parametros = {
-            "dni": dni,
-            "ape": apellido,
-            "nom": nombre,
-            "carr": carrera
-        };
-
+    
+	$( '#enviar' ).click(function() {
+        nuevo();
+    });
+    
+    function nuevo() {
+		var nuevo=true
         $.ajax({
-            data: parametros,
-            url: '<?php echo site_url('index.php/Alumnos/guardarCambios/') ?>',
+			data: $('#formulario').serialize(),
+            url: '<?php echo site_url('index.php/Alumnos/guardarCambios/') ?>'+nuevo,
             method: 'POST',
-            success: function (result) {
-                $("#ok-modal").modal("show");
-                //window.location.replace("<?php echo site_url('index.php/Alumnos/Lista') ?>");
+            dataType: 'JSON',
+            success: function (data) {
+				if(data['status']){
+					$('#ok-modal').modal('show');
+				} else {
+					if(data['existe']) {
+						$('#existe-modal').modal('show');
+					}
+				}
             },
             error: function () {
                 $("#fallo-modal").modal("show");
-                //window.location.replace("<?php echo site_url('index.php/Alumnos/Lista') ?>");
             }
         });
 
     }
+    
+    function validarFormulario() {
+	   jQuery.validator.messages.required = 'Este campo es obligatorio.';
+	   jQuery.validator.messages.number = 'Este campo debe ser num&eacute;rico.';
+	   jQuery.validator.messages.email = 'La direcci&oacute;n de correo es incorrecta.';
+	   $("#formulario").validate();
+	 }
+	 
+	
+	(function() {
+	   validarFormulario();
+	})();
+	 
 </script>
+<style type="text/css">
+	.error {
+		color: #a94442;
+		background-color: #f2dede;
+		border-color: #ebccd1;
+		width:100%;
+	}
+</style>

@@ -11,7 +11,7 @@ session_start();
 if ($_SESSION["autenticado"] != "SI") {
 	echo "No esta logueado";
 	//si no existe, va a la página de autenticacion
-	header("Location: http://campus.mabregu.xyz/");
+	header("Location: ".base_url());
 	//salimos de este script
 	exit();
 }else {
@@ -22,8 +22,12 @@ if ($_SESSION["autenticado"] != "SI") {
 
 	if($tiempo_transcurrido >= 600) {
 		session_destroy();
-		header("Location: http://campus.mabregu.xyz/");
+		header("Location: ".base_url());
 	}else { 
 		$_SESSION["ultimoAcceso"] = $ahora; 
 	} 
 }
+
+/*
+ * Fin de archivo chkUsuario.php
+ */

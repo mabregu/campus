@@ -8,20 +8,16 @@
 
 class ProfesoresModel extends CI_Model {
 
-    private $table = 'persona';
+    private $table = 'vista_profesores';
 
     public function __construct() {
         parent::__construct();
     }
 
     public function getAll() {
-        $this->db->select('p.id id, a.nro_legajo legajo,nombre, apellido, a.id_persona');
-        $this->db->from('persona p');
-        $this->db->join('profesores a', 'a.id_persona=p.id');
-        $rs = $this->db->get();
+        $this->db->select('id, legajo, nombre, apellido');
+        $rs = $this->db->get($this->table);
         $profesores = $rs->result();
-        /* echo $this->db->last_query();
-          die; */
         return $profesores;
     }
 
