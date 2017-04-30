@@ -8,7 +8,7 @@
 
 class AlumnosModel extends CI_Model {
 	
-	private $table = 'persona';
+	private $tabla = 'persona';
 	private $vista = 'vista_alumnos';
 
     public function __construct() {
@@ -25,7 +25,7 @@ class AlumnosModel extends CI_Model {
     public function getById($id) {
         $this->db->select('id,dni,nombre,apellido,id_usuario');
         $this->db->where('dni', $id);
-        $rs = $this->db->get($this->vista);
+        $rs = $this->db->get($this->tabla);
         $resultado = $rs->row();
         return $resultado;
     }
@@ -59,6 +59,7 @@ class AlumnosModel extends CI_Model {
             }
 
             $alumno = array(
+                //el numero de legajo es una combinación entre el id de la persona+id de la carrera
                 'nro_legajo' => $last_id . '-' . $carrera,
                 'id_persona' => $last_id,
                 'id_carrera' => $carrera
@@ -72,5 +73,6 @@ class AlumnosModel extends CI_Model {
     public function eliminar($id) {
         $this->db->where('id', $id);
         $this->db->delete('persona');
+        //echo $this->db->last_query();die;
     }
 }

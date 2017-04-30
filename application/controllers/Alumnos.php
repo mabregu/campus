@@ -72,9 +72,9 @@ class Alumnos extends CI_Controller {
         }
     }
 
-    public function eliminar($id) {
+    public function eliminar() {
+        $id = $this->input->post('id');
         $this->am->eliminar($id);
-        redirect('index.php/Alumnos/Lista');
     }
 
 }

@@ -138,21 +138,29 @@ and open the template in the editor.
                 <h4 class="modal-title" id="EditarLabel">¿Está seguro de que desea eliminar el Alumno?</h4>
             </div>
             <div class="modal-body">
-                <form class="form-inline">
-                    <label>Id</label>
-                    <input id="id" name="id" class="form-control" style="width: 50px ;" readonly="readonly">
-                    <label>Legajo</label>
-                    <input id="leg" name="leg" class="form-control" style="width: 100px ;" readonly="readonly">
-                </form><br>
-                <label>Nombre</label>
-                <input id="nomb" name="name" class="form-control" style="width: 250px ;" readonly="readonly">
-                <label>Apellido</label>
-                <input id="apel" name="ape" class="form-control" style="width: 250px ;" readonly="readonly">
+                <form class="form-inline" id="formulario_eliminar">
+                    <div class="form-group">
+                        <!--label>Id</label>
+                        <div id="id"></div-->
+                        <input id="id_alum" name="id" class="form-control" type="hidden">
+                    </div>
+                    <div class="form-group">
+                        <label>Nombre</label>
+                        <div id="nomb"></div>
+                    </div>
+                    <div class="form-group">
+                        <label>Apellido</label>
+                        <div id="apel"></div>    
+                    </div>
+                    <div class="form-group">
+                        <label>Legajo</label>
+                        <div id="leg"></div>
+                    </div>
+                </form>                
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
-                <button type="button" class="btn btn-primary " onclick="eliminar($('#Eliminar #id').val());
-                        return false;">Confirmar</button>
+                <button type="submit" class="btn btn-primary" id="borrar">Confirmar</button>
             </div>
         </div>
     </div>
@@ -248,10 +256,11 @@ and open the template in the editor.
             "nombre": $('#eliminar' + id).data('name')
         };
 
-        $("#Eliminar #id").val(datos["id"]);
-        $("#Eliminar #leg").val(datos["legajo"]);
-        $("#Eliminar #nomb").val(datos["nombre"]);
-        $("#Eliminar #apel").val(datos["apellido"]);
+        //$("#Eliminar #id").html(datos["id"]);
+        $("#Eliminar #id_alum").val(datos["id"]);
+        $("#Eliminar #leg").html(datos["legajo"]);
+        $("#Eliminar #nomb").html(datos["nombre"]);
+        $("#Eliminar #apel").html(datos["apellido"]);
     }
 
     function guardarCambios(id, apellido, nombre) {
@@ -260,8 +269,6 @@ and open the template in the editor.
             "ape": apellido,
             "name": nombre
         };
-
-        //alert(parametros['id'] + ' nombre: ' + parametros['nom']+' apellido: '+parametros['ape']);
 
         $.ajax({
             data: parametros,
@@ -275,18 +282,21 @@ and open the template in the editor.
             }
         });
     }
+    
+    $( '#borrar' ).click(function() {
+        eliminar();
+    });
 
-    function eliminar(id) {
-        var id_alumno = id;
-
+    function eliminar() {
         $.ajax({
-            data: id_alumno,
-            url: '<?php echo site_url('index.php/Alumnos/eliminar/') ?>' + id_alumno,
+            data: $('#formulario_eliminar').serialize(),
+            url: '<?php echo site_url('index.php/Alumnos/eliminar/') ?>',
             method: 'POST',
+            //dataType: 'JSON',
             success: function (result) {
                 $("#ok-modal").modal("show");
             },
-            error: function () {
+            error: function (request, status, error) {
                 $("#fallo-modal").modal("show");
             }
         });
