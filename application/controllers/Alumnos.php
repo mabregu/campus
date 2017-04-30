@@ -58,7 +58,7 @@ class Alumnos extends CI_Controller {
             echo json_encode($data);exit();
         }
     }
-
+//validar que los datos del alta esten ok
     public function validar($dni,$nombre,$apellido) {
         if ($dni=='' || $nombre=='' || $apellido=='' || $apellido==null || $dni==null || $nombre==null) {
             $data['status'] = FALSE;
