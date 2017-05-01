@@ -24,14 +24,17 @@ class Profesores extends CI_Controller {
     public function guardarCambios($id = null) {
         if ($this->input->post()) {
             $dni = $this->input->post('dni');
-            $nombre = $this->input->post('nom');
+            $nombre = $this->input->post('name');
             $apellido = $this->input->post('ape');
             
-            if(!is_numeric($id)){$this->validar($dni,$nombre,$apellido);}            
+            if(!is_numeric($id)){$this->validar($dni,$nombre,$apellido);}
             
             $this->pm->guardarCambios($id, $dni, $nombre, $apellido, $id_usuario=0);
+            $data['status'] = TRUE;
+            echo json_encode($data);
         } else {
-            $this->Lista();
+            $data['status'] = FALSE;
+            echo json_encode($data);exit();
         }
     }
     
@@ -40,16 +43,16 @@ class Profesores extends CI_Controller {
             $data['status'] = FALSE;
             echo json_encode($data);exit();
         } else {
-            $data['persona'] = $this->am->getById($dni);
+            $data['persona'] = $this->pm->getById($dni);
             if($data['persona']) {
 				echo json_encode(array("status" => FALSE,"existe" => TRUE));exit();
 			}
         }
     }
     
-    public function eliminar($id) {
+    public function eliminar() {
+        $id = $this->input->post('id');
         $this->pm->eliminar($id);
-        redirect('index.php/Profesores/Lista');
     }
 
 }

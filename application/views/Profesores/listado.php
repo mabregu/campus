@@ -110,17 +110,18 @@ and open the template in the editor.
                 <h4 class="modal-title" id="EditarLabel">Alta de Profesor</h4>
             </div>
             <div class="modal-body">
-                <label>DNI</label>
-                <input id="dni" name="dni" class="form-control" style="width: 150px ;" required>
-                <label>Nombre</label>
-                <input id="nomb" name="name" class="form-control" style="width: 250px ;" required>
-                <label>Apellido</label>
-                <input id="apel" name="ape" class="form-control" style="width: 250px ;" required>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
-                <button type="button" class="btn btn-primary " onclick="nuevo($('#Alta #dni').val(), $('#Alta #apel').val(), $('#Alta #nomb').val(), $('#Alta #carr').val());
-                        return false;">Confirmar</button>
+                <form id="formulario" action="" method="post" onsubmit="return false">
+                    <label>DNI</label>
+                    <input id="dni" name="dni" class="form-control" style="width: 150px ;" required>
+                    <label>Nombre</label>
+                    <input id="nomb" name="name" class="form-control" style="width: 250px ;" required>
+                    <label>Apellido</label>
+                    <input id="apel" name="ape" class="form-control" style="width: 250px ;" required>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+                        <button type="submit" class="btn btn-primary " id='enviar'>Confirmar</button>
+                    </div>
+                </form>                
             </div>
         </div>
     </div>
@@ -135,21 +136,81 @@ and open the template in the editor.
                 <h4 class="modal-title" id="EditarLabel">¿Está seguro de que desea eliminar el Profesor?</h4>
             </div>
             <div class="modal-body">
-                <form class="form-inline">
-                    <label>Id</label>
-                    <input id="id" name="id" class="form-control" style="width: 50px ;" readonly="readonly">
-                    <label>Legajo</label>
-                    <input id="leg" name="leg" class="form-control" style="width: 100px ;" readonly="readonly">
-                </form><br>
-                <label>Nombre</label>
-                <input id="nomb" name="name" class="form-control" style="width: 250px ;" readonly="readonly">
-                <label>Apellido</label>
-                <input id="apel" name="ape" class="form-control" style="width: 250px ;" readonly="readonly">
+                <form class="form-inline" id="formulario_eliminar">
+                    <div class="form-group">
+                        <input id="id_prof" name="id" class="form-control" type="hidden">
+                    </div>
+                    <div class="form-group">
+                        <label>Nombre</label>
+                        <div id="nomb"></div>
+                    </div>
+                    <div class="form-group">
+                        <label>Apellido</label>
+                        <div id="apel"></div>    
+                    </div>
+                    <div class="form-group">
+                        <label>Legajo</label>
+                        <div id="leg"></div>
+                    </div>
+                </form>                
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
-                <button type="button" class="btn btn-primary " onclick="eliminar($('#Eliminar #id').val());
-                        return false;">Confirmar</button>
+                <button type="button" class="btn btn-primary " id='borrar'>Confirmar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal Ok-->
+<div class="modal fade" id="ok-modal" tabindex="-1" role="dialog" aria-labelledby="okLabel">
+    <div class="modal-dialog modal-sm" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="okLabel">¡Ok!</h4>
+            </div>
+            <div class="modal-body">
+                <p>¡Todos sus cambios fueron realizados con exito!</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" data-dismiss="modal" onclick="location.href = '<?php echo site_url('index.php/Profesores/Lista') ?>';">Ok</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal Fallo-->
+<div class="modal fade" id="fallo-modal" tabindex="-1" role="dialog" aria-labelledby="falloLabel">
+    <div class="modal-dialog modal-sm" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="falloLabel">Lo sentimos...</h4>
+            </div>
+            <div class="modal-body">
+                <p>Lamentablemente ocurrio una falla, vuelva a intentarlo. Disculpe las molestias ocasionadas.</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" data-dismiss="modal" onclick="location.href = '<?php echo site_url('index.php/Profesores/Lista') ?>';">Cerrar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal ya existe-->
+<div class="modal fade" id="existe-modal" tabindex="-1" role="dialog" aria-labelledby="existeLabel">
+    <div class="modal-dialog modal-sm" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="existeLabel">Ya existe.</h4>
+            </div>
+            <div class="modal-body">
+                <p>La persona que intenta agregar, ya se encuentra en el sistema.</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" data-dismiss="modal" onclick="location.href = '<?php echo site_url('index.php/Profesores/Lista') ?>';">Cerrar</button>
             </div>
         </div>
     </div>
@@ -190,18 +251,20 @@ and open the template in the editor.
             "apellido": $('#eliminar' + id).data('ape'),
             "nombre": $('#eliminar' + id).data('name')
         };
-
-        $('#Eliminar #id').val(datos['id']);
-        $('#Eliminar #leg').val(datos['legajo']);
-        $('#Eliminar #nomb').val(datos['nombre']);
-        $('#Eliminar #apel').val(datos['apellido']);
+        
+        $("#Eliminar #id_prof").val(datos["id"]);
+        $("#Ver #id").html(datos["id"]);
+        $("#Ver #leg").html(datos["legajo"]);
+        $("#Ver #nomb").html(datos["nombre"]);
+        $("#Ver #apel").html(datos["apellido"]);
     }
 
     function guardarCambios(id, apellido, nombre) {
+
         var parametros = {
             "id": id,
             "ape": apellido,
-            "nom": nombre
+            "name": nombre
         };
 
         $.ajax({
@@ -209,56 +272,78 @@ and open the template in the editor.
             url: '<?php echo site_url('index.php/Profesores/guardarCambios/') ?>' + parametros['id'],
             method: 'POST',
             success: function (result) {
-                window.location.replace("<?php echo site_url('index.php/Profesores/Lista') ?>");
+                $("#ok-modal").modal("show");
             },
             error: function () {
-                alert("Ocurrio un error!");
-                window.location.replace("<?php echo site_url('index.php/Profesores/Lista') ?>");
+                $("#fallo-modal").modal("show");
             }
         });
     }
-
-    function eliminar(id) {
-        var id_alumno = id;
+    
+    $( '#borrar' ).click(function() {
+        eliminar();
+    });
+    
+    function eliminar() {
 
         $.ajax({
-            data: id_alumno,
-            url: '<?php echo site_url('index.php/Profesores/eliminar/') ?>' + id_alumno,
+            data: $('#formulario_eliminar').serialize(),
+            url: '<?php echo site_url('index.php/Profesores/eliminar/') ?>',
             method: 'POST',
             success: function (result) {
-                window.location.replace("<?php echo site_url('index.php/Profesores/Lista') ?>");
+                $("#ok-modal").modal("show");
             },
             error: function () {
-                alert("Ocurrio un error!");
-                window.location.replace("<?php echo site_url('index.php/Profesores/Lista') ?>");
+                $("#fallo-modal").modal("show");
             }
         });
     }
+    
+    $( '#enviar' ).click(function() {
+        nuevo();
+    });
 
-    function nuevo(dni, apellido, nombre) {
-
-        var parametros = {
-            "dni": dni,
-            "ape": apellido,
-            "nom": nombre
-        };
-
-        if (parametros['dni'] && parametros['ape'] && parametros['nom']) {
-            $.ajax({
-                data: parametros,
-                url: '<?php echo site_url('index.php/Profesores/guardarCambios/') ?>',
-                method: 'POST',
-                success: function (result) {
-                    window.location.replace("<?php echo site_url('index.php/Profesores/Lista') ?>");
-                },
-                error: function () {
-                    alert("Ocurrio un error!");
-                    window.location.replace("<?php echo site_url('index.php/Profesores/Lista') ?>");
-                }
-            });
-        } else {
-            alert('Faltan datos!');
-        }
+    function nuevo() {
+        var nuevo=true
+        $.ajax({
+            data: $('#formulario').serialize(),
+            url: '<?php echo site_url('index.php/Profesores/guardarCambios/') ?>'+nuevo,
+            method: 'POST',
+            dataType: 'JSON',
+            success: function (data) {
+				if(data['status']){
+					$('#ok-modal').modal('show');
+				} else {
+					if(data['existe']) {
+						$('#existe-modal').modal('show');
+					}
+				}
+            },
+            error: function () {
+                $("#fallo-modal").modal("show");
+            }
+        });
 
     }
+    
+    function validarFormulario() {
+	   jQuery.validator.messages.required = 'Este campo es obligatorio.';
+	   jQuery.validator.messages.number = 'Este campo debe ser num&eacute;rico.';
+	   jQuery.validator.messages.email = 'La direcci&oacute;n de correo es incorrecta.';
+	   $("#formulario").validate();
+	 }
+	 
+	
+	(function() {
+	   validarFormulario();
+	})();
+    
 </script>
+<style type="text/css">
+	.error {
+		color: #a94442;
+		background-color: #f2dede;
+		border-color: #ebccd1;
+		width:100%;
+	}
+</style>

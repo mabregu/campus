@@ -119,12 +119,12 @@ and open the template in the editor.
                     <option value="2">Técnico Superior en Gestión Parlamentaria</option>
                     <option value="3">Técnico Superior en Administración Publica</option>
                 </select>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
-                <button type="submit" id='enviar' class="btn btn-primary ">Confirmar</button>
-            </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+                    <button type="submit" id='enviar' class="btn btn-primary ">Confirmar</button>
+                </div>
             </form>
+            </div>                        
         </div>
     </div>
 </div>
@@ -297,7 +297,7 @@ and open the template in the editor.
                 $("#ok-modal").modal("show");
             },
             error: function (request, status, error) {
-                $("#fallo-modal").modal("show");
+                $("#fallo-modal").modal("show");                
             }
         });
     }

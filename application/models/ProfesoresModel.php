@@ -24,9 +24,10 @@ class ProfesoresModel extends CI_Model {
     public function getById($id) {
         $this->db->select('*');
         $this->db->from('persona');
-        $this->db->where('id', $id);
+        $this->db->where('dni', $id);
         $consulta = $this->db->get();
         $resultado = $consulta->row();
+        //echo $this->db->last_query();die;
         return $resultado;
     }
 
@@ -36,7 +37,7 @@ class ProfesoresModel extends CI_Model {
             'apellido' => $apellido,
         );
 
-        if ($id) {
+        if(is_numeric($id)) {
             $this->db->where('id', $id);
             $this->db->update('persona', $data_editar);
         } else {
@@ -63,6 +64,7 @@ class ProfesoresModel extends CI_Model {
             );
 
             $this->db->insert('profesores', $alumno);
+            //echo $this->db->last_query();die;
         }
     }
 
