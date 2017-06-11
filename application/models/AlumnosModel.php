@@ -39,7 +39,7 @@ class AlumnosModel extends CI_Model {
         if(is_numeric($id)) {
             $this->db->where('id', $id);
             $this->db->update('persona', $data_editar);
-            //echo $this->db->last_query();die;
+            //echo $this->db->last_query();die;//asdsad
         } else {
             $data_insert = array(
                 'id' => $id,

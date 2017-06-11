@@ -38,7 +38,7 @@ class UsuariosModel extends CI_Model {
         $this->db->where('password', $pass);
         $rs = $this->db->get();
         $users = $rs->result_array();
-//        echo $this->db->last_query();die;
+        //echo $this->db->last_query();die;
         return $users;
     }
 
