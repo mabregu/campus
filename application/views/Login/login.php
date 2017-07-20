@@ -67,7 +67,7 @@
                                         </label>
                                     </div>
                                     <!-- Change this to a button or input when using this as a form -->
-                                    <button type="submit" onclick="save()" class="btn btn-lg btn-success btn-block">Entrar</button>
+                                    <button type="submit" onclick="save(event)" class="btn btn-lg btn-success btn-block">Entrar</button>
                                     <!--a href="http://mabregu.xyz/" class="btn btn-lg btn-primary btn-block">Volver</a-->
                                 </fieldset>
                             </form><br>
@@ -98,7 +98,7 @@ function showContent() {
     element = document.getElementById("msj");
     element.style.display = 'block';
 }
-function save() {
+function save(event) {
     event.preventDefault();
     var url;
     url = "<?php echo site_url('index.php/Login/Usuarios') ?>";

@@ -24,6 +24,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 |
 */
 $config['base_url'] = 'http://localhost/campus/';
+//$config['base_url'] = 'http://10.10.0.75/campus/';
 
 /*
 |--------------------------------------------------------------------------
