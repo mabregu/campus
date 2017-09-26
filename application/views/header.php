@@ -196,19 +196,19 @@ include_once "Login/chkUsuario.php";
                     <div class="sidebar-nav navbar-collapse">
                         <ul class="nav" id="side-menu">
                             <li>
-                                <a href="<?php echo base_url(); ?>index.php/Instituto"><!--i class="fa fa-dashboard fa-fw"></i--> Inicio </a>
+                                <a href="<?php echo base_url(); ?>index.php/Inicio"><!--i class="fa fa-dashboard fa-fw"></i--> Inicio </a>
                             </li>
                             <li>
                                 <a href="#"><!--i class="fa fa-bar-chart-o fa-fw"></i--> Instituto <span class="fa arrow"></span></a>
                                 <ul class="nav nav-second-level">
                                     <li>
-                                        <a href="<?php echo base_url(); ?>index.php/Instituto/Charlas">Charlas informátivas</a>
+                                        <a href="<?php echo base_url(); ?>index.php/Charlas">Charlas informátivas</a>
                                     </li>
                                     <li>
-                                        <a href="<?php echo base_url(); ?>index.php/Instituto/Convenios">Convenios</a>
+                                        <a href="<?php echo base_url(); ?>index.php/Convenios">Convenios</a>
                                     </li>
                                     <li>
-                                        <a href="<?php echo base_url(); ?>index.php/Instituto/Calendario">Calendario Academico 2017</a>
+                                        <a href="<?php echo base_url(); ?>index.php/Calendario">Calendario Academico 2017</a>
                                     </li>
                                 </ul>
                                 <!-- /.nav-second-level -->
@@ -217,13 +217,13 @@ include_once "Login/chkUsuario.php";
                                 <a href="#">Personal<span class="fa arrow"></span></a>
                                 <ul class="nav nav-second-level">
                                     <li>
-                                        <a href="<?php echo base_url(); ?>index.php/Autoridades/Lista">Autoridades</a>
+                                        <a href="<?php echo base_url(); ?>index.php/Autoridades">Autoridades</a>
                                     </li>
                                     <li>
-                                        <a href="<?php echo base_url(); ?>index.php/Profesores/Lista">Profesores</a>
+                                        <a href="<?php echo base_url(); ?>index.php/Profesores">Profesores</a>
                                     </li>
                                     <li>
-                                        <a href="<?php echo base_url(); ?>index.php/Alumnos/Lista">Alumnos</a>
+                                        <a href="<?php echo base_url(); ?>index.php/Alumnos">Alumnos</a>
                                     </li>
                                 </ul>
                             </li>
@@ -231,13 +231,13 @@ include_once "Login/chkUsuario.php";
                                 <a href="#">Carreras<span class="fa arrow"></span></a>
                                 <ul class="nav nav-second-level">
                                     <li>
-                                        <a href="<?php echo base_url(); ?>index.php/Carrera/ListarMaterias/1">Análisis de Sistemas</a>
+                                        <a href="<?php echo base_url(); ?>index.php/Carrera/Analisis-de-Sistemas">Análisis de Sistemas</a>
                                     </li>
                                     <li>
-                                        <a href="<?php echo base_url(); ?>index.php/Carrera/ListarMaterias/2">Gestión Parlamentaria</a>
+                                        <a href="<?php echo base_url(); ?>index.php/Carrera/Gestion-Parlamentaria">Gestión Parlamentaria</a>
                                     </li>
                                     <li>
-                                        <a href="<?php echo base_url(); ?>index.php/Carrera/ListarMaterias/3">Administración Publica</a>
+                                        <a href="<?php echo base_url(); ?>index.php/Carrera/Administracion-Publica">Administración Publica</a>
                                     </li>
                                 </ul>
                             </li>

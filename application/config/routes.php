@@ -52,3 +52,14 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 $route['default_controller'] = 'Login';
 $route['404_override'] = '';
 $route['translate_uri_dashes'] = FALSE;
+
+$route['Inicio'] = "Instituto";
+$route['Charlas'] = "Instituto/Charlas";
+$route['Convenios'] = "Instituto/Convenios";
+$route['Calendario'] = "Instituto/Calendario";
+$route['Autoridades'] = "Autoridades/Lista";
+$route['Profesores'] = "Profesores/Lista";
+$route['Alumnos'] = "Alumnos/Lista";
+$route['Carrera/Analisis-de-Sistemas'] = "Carrera/ListarMaterias/1";
+$route['Carrera/Gestion-Parlamentaria'] = "Carrera/ListarMaterias/2";
+$route['Carrera/Administracion-Publica'] = "Carrera/ListarMaterias/3";
