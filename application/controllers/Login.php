@@ -61,7 +61,7 @@ class Login extends CI_Controller {
         if ($_SESSION["autenticado"] != "SI") {
             echo "No esta logueado";
             //si no existe, va a la página de autenticacion
-            header("Location: Login");
+            header("Location: ". base_url());
             //salimos de este script
             exit();
         } else {
