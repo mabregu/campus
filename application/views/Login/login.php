@@ -108,7 +108,7 @@ function save(event) {
         data: $('#formulario').serialize(),
         dataType: "JSON",
         success: function (data) {
-            window.location.replace("<?php echo site_url('index.php/Instituto') ?>");
+            window.location.replace("<?php echo site_url('Inicio') ?>");
         },
         error: function () {
             showContent();
